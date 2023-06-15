@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Quiz Form</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"],
+        .form-group select,
+        .form-group input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group select {
+            height: 38px;
+        }
+
+        .form-group button[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .quiz-questions-list li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f7f7f7;
+            border-radius: 5px;
+            list-style: none;
+        }
+
+        .quiz-questions-list li button {
+            padding: 5px 10px;
+            font-size: 14px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .user-answers-list li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f7f7f7;
+            border-radius: 5px;
+            list-style: none;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="first">
+        <i class="fa fa-phone" aria-hidden="true" id="icon-space"></i>234 -2345678
+        <i class="fas fa-map-marker" aria-hidden="true"  id="icon-space"></i> Mangalore
+    </div>
+
+    <div class="header">
+        <div class="logo-container">
+          <img src="images/logo.jpg" alt="Logo" class="logo">
+        </div>
+        
+        <ul class="navigation-menu">
+            <li><a class="active" href="#home">Home</a></li>
+            <li><a href="#news">News</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <!-- <div class="dropdown">
+                <button class="dropbtn" onclick="myFunction()">Login
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content" id="myDropdown">
+                  <a href="#user" onclick="showLoginForm()">User Login</a>
+                  <a href="#admin" onclick="showAdminForm()">Admin Login</a>
+                </div>
+            </div>  -->
+            <li class="dropdown">
+                <button class="dropbtn">Admin Portal <i class="fa fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                    <a href="#" id="quizFormLink">Quiz Form</a>
+                    <a href="#">User Answers</a>
+                    <a href="#">Quiz Questions</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <div id="quizFormContainer" style="display: none;"></div>
+        <h1>Admin Quiz Form</h1>
+        <form id="quizForm" >
+            <div class="form-group">
+                <label for="question">Question:</label>
+                <input type="text" id="question" name="question" required>
+            </div>
+
+            <div class="form-group">
+                <label for="option1">Option 1:</label>
+                <input type="text" id="option1" name="option1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="option2">Option 2:</label>
+                <input type="text" id="option2" name="option2" required>
+            </div>
+
+            <div class="form-group">
+                <label for="option3">Option 3:</label>
+                <input type="text" id="option3" name="option3" required>
+            </div>
+
+            <div class="form-group">
+                <label for="option4">Option 4:</label>
+                <input type="text" id="option4" name="option4" required>
+            </div>
+
+            <div class="form-group">
+                <label for="correctAnswer">Correct Answer:</label>
+                <select id="correctAnswer" name="correctAnswer" required>
+                    <option value="">Select an option</option>
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                    <option value="option3">Option 3</option>
+                    <option value="option4">Option 4</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="marks">Marks:</label>
+                <input type="number" id="marks" name="marks" min="1" required>
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Add Question</button>
+            </div>
+        </form>
+</div>
+        <h2>Quiz Questions:</h2>
+        <ul id="quizQuestionsList" class="quiz-questions-list"></ul>
+
+        <h2>User Answers:</h2>
+        <ul id="userAnswersList" class="user-answers-list"></ul>
+    </div>
+
+    <script>
+        var quizQuestions = JSON.parse(localStorage.getItem('quizQuestions')) || [];
+        var userAnswers = JSON.parse(localStorage.getItem('userAnswers')) || [];
+
+        displayQuizQuestions();
+        displayUserAnswers();
+
+        document.getElementById('quizForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var question = document.getElementById('question').value.trim();
+            var option1 = document.getElementById('option1').value.trim();
+            var option2 = document.getElementById('option2').value.trim();
+            var option3 = document.getElementById('option3').value.trim();
+            var option4 = document.getElementById('option4').value.trim();
+            var correctAnswer = document.getElementById('correctAnswer').value;
+            var marks = document.getElementById('marks').value;
+
+            if (!question || !option1 || !option2 || !option3 || !option4 || !correctAnswer || !marks) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            var quizQuestion = {
+                question: question,
+                options: [option1, option2, option3, option4],
+                correctAnswer: correctAnswer,
+                marks: marks
+            };
+
+            quizQuestions.push(quizQuestion);
+
+            // Save quiz questions to local storage
+            localStorage.setItem('quizQuestions', JSON.stringify(quizQuestions));
+
+            displayQuizQuestions();
+
+            document.getElementById('quizForm').reset();
+        });
+
+        function displayQuizQuestions() {
+            var quizQuestionsList = document.getElementById('quizQuestionsList');
+            quizQuestionsList.innerHTML = '';
+
+            for (var i = 0; i < quizQuestions.length; i++) {
+                var quizQuestion = quizQuestions[i];
+                var listItem = document.createElement('li');
+                listItem.textContent = 'Question: ' + quizQuestion.question + ', Correct Answer: ' + quizQuestion.correctAnswer + ', Marks: ' + quizQuestion.marks;
+
+                var removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.setAttribute('data-index', i);
+                removeButton.className = 'remove-button';
+                listItem.appendChild(removeButton);
+
+                quizQuestionsList.appendChild(listItem);
+            }
+        }
+
+        function displayUserAnswers() {
+            var userAnswersList = document.getElementById('userAnswersList');
+            userAnswersList.innerHTML = '';
+
+            for (var i = 0; i < userAnswers.length; i++) {
+                var userAnswer = userAnswers[i];
+                var listItem = document.createElement('li');
+                listItem.textContent = 'User Answer: ' + userAnswer.answer + ', Marks Obtained: ' + userAnswer.marksObtained;
+
+                userAnswersList.appendChild(listItem);
+            }
+        }
+
+        document.getElementById('quizQuestionsList').addEventListener('click', function (event) {
+            if (event.target.classList.contains('remove-button')) {
+                var index = event.target.getAttribute('data-index');
+                quizQuestions.splice(index, 1);
+
+                // Save quiz questions to local storage
+                localStorage.setItem('quizQuestions', JSON.stringify(quizQuestions));
+
+                displayQuizQuestions();
+            }
+        });
+        //to display the dropdown menu
+        document.querySelector(".dropbtn").addEventListener("click", function() {
+            document.querySelector(".dropdown-content").classList.toggle("show");
+        });
+    
+        window.onclick = function(event) {
+            if (!event.target.matches(".dropbtn")) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains("show")) {
+                        openDropdown.classList.remove("show");
+                    }
+                }
+            }
+        };
+        //when i click on quiz question that should come
+        // Add an event listener to the "Quiz Form" link
+document.getElementById('quizFormLink').addEventListener('click', function(event) {
+    event.preventDefault();
+    toggleQuizForm();
+});
+
+// Function to show or hide the quiz form
+function toggleQuizForm() {
+    var quizFormContainer = document.getElementById('quizFormContainer');
+    var quizFormLink = document.getElementById('quizFormLink');
+
+    if (quizFormContainer.style.display === 'none') {
+        quizFormContainer.style.display = 'block';
+        quizFormLink.textContent = 'Hide Quiz Form';
+    } else {
+        quizFormContainer.style.display = 'none';
+        quizFormLink.textContent = 'Quiz Form';
+    }
+}
+
+    </script>
+</body>
+</html>

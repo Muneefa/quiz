@@ -1,0 +1,184 @@
+#first {
+    background-color: red;
+    font-size: 1rem;
+    padding: 17px; 
+    display: flex;
+    
+}
+#icon-space {
+    margin-left: 10px; /* Adjust the value as per your desired spacing */
+  }
+  
+
+  /* navigation bar */
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 3px;
+    overflow: hidden;
+    /* background-color: #ede6e6; */
+  }
+  
+  li {
+    float: right;
+  }
+  
+  li a {
+    display: block;
+    color: rgb(27, 24, 24);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  li a:hover ,.dropdown{
+    background-color: #af5757;
+  }
+
+  /* logo styling */
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    justify-content: space-between;
+  }
+  
+  .logo-container {
+    margin-right: 20px;
+  }
+  
+  .navigation-menu {
+    list-style: none;
+    display: flex;
+    /* align-items: center; */
+    float: right;
+  }
+  
+  .navigation-menu li {
+    margin-right: 10px;
+  }
+  
+  .navigation-menu li a {
+    text-decoration: none;
+  }
+  .logo{
+    width: 50px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  /* login form styling user and admin */
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    max-width: 800px; /* Adjust the max-width to your desired value */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 20px;
+  }
+  
+  .login-section {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    display: flex;
+   
+  }
+
+  .login-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .login-section label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .login-section input[type="text"],
+  .login-section input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+
+  .login-section button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  /* login image styling */
+  .loginimage{
+    width:40%;
+    align-items: center;
+  }
+  /* 
+  */
+  .dropdown {
+    float: left;
+    overflow: hidden;
+  }
+  
+  .dropdown .dropbtn {
+    cursor: pointer;
+    font-size: 16px;  
+    border: none;
+    outline: none;
+    color: rgb(9, 1, 1);
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ede1e1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+  
+  .show {
+    display: block;
+  }
+
+  /* cove rpage stryle */
+  .coverpage {
+    background-image:linear-gradient(rgba(15, 15, 15, 0.5), rgba(26, 8, 8, 0.5)), url("images/student.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 99vw;
+    height: 80vh; /* Set the height of the div to cover the viewport height */
+    position: absolute;
+    
+  }
+  
+  
